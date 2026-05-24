@@ -6,22 +6,20 @@ import VideoCard from '@/components/VideoCard';
 import VideoPlayer from '@/components/VideoPlayer';
 import TracklistPlayer from '@/components/TracklistPlayer';
 
-// 1. Vidéo à la une (Mise en avant tout en haut)
-const featuredVideo: Video = {
-  id: 'featured-1',
-  youtubeId: 'RdjMT7x6nYs',
-  title: "3 choses que j'aurais aimé savoir avant le lycée",
-  category: 'GUIDE',
-  views: '1.2K', 
-  date: 'Mai 2026',
-  description: "Ce que personne ne te dit sur les années lycée. Conseils bruts, organisation et mindset pour aborder cette étape sereinement sans perdre de temps.",
-  thumbnail: 'https://img.youtube.com/vi/RdjMT7x6nYs/maxresdefault.jpg',
-  duration: '12:45',
-  tracklist: [] 
-};
-
-// 2. Les 5 autres vidéos pour la grille du dessous
-const diaryVideos: Video[] = [
+// Centralisation de toutes les vidéos pour pouvoir basculer de l'une à l'autre dynamiquement
+const allVideos: Video[] = [
+  {
+    id: 'featured-1',
+    youtubeId: 'RdjMT7x6nYs',
+    title: "3 choses que j'aurais aimé savoir avant le lycée",
+    category: 'GUIDE',
+    views: '1.2K', 
+    date: 'Mai 2026',
+    description: "Ce que personne ne te dit sur les années lycée. Conseils bruts, organisation et mindset pour aborder cette étape sereinement sans perdre de temps.",
+    thumbnail: 'https://img.youtube.com/vi/RdjMT7x6nYs/maxresdefault.jpg',
+    duration: '12:45',
+    tracklist: [] 
+  },
   {
     id: 'v-1',
     youtubeId: 'IUU7bDvKU4U',
@@ -85,17 +83,22 @@ const diaryVideos: Video[] = [
 ];
 
 export default function DiaryPage() {
-  // Ajout de "SHORT" dans le type de l'état pour correspondre au fichier global
-  const [activeGridVideo, setActiveGridVideo] = useState<Video | null>(diaryVideos[0]);
+  // Par défaut, la vidéo active au chargement est la première de la liste
+  const [activeVideo, setActiveVideo] = useState<Video>(allVideos[0]);
   const [filter, setFilter] = useState<'ALL' | 'VLOG' | 'GUIDE' | 'RAW' | 'SHORT'>('ALL');
 
-  const filteredVideos = filter === 'ALL' 
-    ? diaryVideos 
-    : diaryVideos.filter(v => v.category === filter);
+  // Filtrage : on garde toutes les vidéos ou seulement celles de la catégorie sélectionnée, 
+  // MAIS on exclut la vidéo actuellement en cours de lecture pour faire office de "recommandations"
+  const recommendationVideos = allVideos.filter(video => {
+    const matchesCategory = filter === 'ALL' || video.category === filter;
+    const isNotPlaying = video.id !== activeVideo.id;
+    return matchesCategory && isNotPlaying;
+  });
 
   const handleSelectVideo = (video: Video) => {
-    setActiveGridVideo(video);
-    const element = document.getElementById('grid-player-section');
+    setActiveVideo(video);
+    // Remonte en douceur vers le lecteur haut de page
+    const element = document.getElementById('main-player-section');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -110,85 +113,66 @@ export default function DiaryPage() {
           <p className="diary-subtitle">Explore l&apos;intégralité des vlogs, guides et contenus bruts.</p>
         </header>
 
-        {/* SECTION 1 : LA VIDÉO INCONTOURNABLE (Toujours fixe en haut) */}
-        <section className="diary-section-featured">
-          <div className="section-label">À LA UNE</div>
+        {/* LECTEUR PRINCIPAL (En haut de l'interface, s'actualise dynamiquement) */}
+        <section id="main-player-section" className="diary-section-featured">
+          <div className="section-label">LECTEUR EN COURS</div>
           <div className="diary-featured">
             <div className="diary-featured__player">
-              <VideoPlayer youtubeId={featuredVideo.youtubeId} title={featuredVideo.title} />
+              {/* Le lecteur reçoit l'ID YouTube de la vidéo sélectionnée activement */}
+              <VideoPlayer youtubeId={activeVideo.youtubeId} title={activeVideo.title} />
               
               <div className="diary-featured__info">
-                <h2>{featuredVideo.title}</h2>
+                <h2>{activeVideo.title}</h2>
                 <div className="diary-featured__meta">
-                  <span className="label-category">{featuredVideo.category}</span>
+                  <span className="label-category">{activeVideo.category}</span>
                   <span>•</span>
-                  <span>{featuredVideo.views} vues</span>
+                  <span>{activeVideo.views || '1K'} vues</span>
                   <span>•</span>
-                  <span>{featuredVideo.date}</span>
+                  <span>{activeVideo.date}</span>
                 </div>
-                <p>{featuredVideo.description}</p>
+                <p>{activeVideo.description}</p>
               </div>
             </div>
             
             <div className="diary-featured__sidebar">
-              <TracklistPlayer tracks={featuredVideo.tracklist || []} videoTitle={featuredVideo.title} />
+              <TracklistPlayer tracks={activeVideo.tracklist || []} videoTitle={activeVideo.title} />
             </div>
           </div>
         </section>
 
         <hr className="section-divider" />
 
-        {/* SECTION 2 : LE LECTEUR DE LA GRILLE */}
-        {activeGridVideo && (
-          <section id="grid-player-section" className="diary-section-grid-player">
-            <div className="diary-featured">
-              <div className="diary-featured__player">
-                <VideoPlayer youtubeId={activeGridVideo.youtubeId} title={activeGridVideo.title} />
-                
-                <div className="diary-featured__info">
-                  <h2>{activeGridVideo.title}</h2>
-                  <div className="diary-featured__meta">
-                    <span className="label-category">{activeGridVideo.category}</span>
-                    <span>•</span>
-                    <span>{activeGridVideo.views} vues</span>
-                    <span>•</span>
-                    <span>{activeGridVideo.date}</span>
-                  </div>
-                  <p>{activeGridVideo.description}</p>
-                </div>
-              </div>
-              
-              <div className="diary-featured__sidebar">
-                <TracklistPlayer tracks={activeGridVideo.tracklist || []} videoTitle={activeGridVideo.title} />
-              </div>
-            </div>
-          </section>
+        {/* FILTRES POUR LES SUGGESTIONS */}
+        <div className="diary-filters-header">
+          <div className="section-label" style={{ margin: 0 }}>SUGGESTIONS & RECOMMANDATIONS</div>
+          <div className="diary-filters">
+            {(['ALL', 'VLOG', 'GUIDE', 'RAW', 'SHORT'] as const).map(f => (
+              <button 
+                key={f}
+                className={`diary-filter ${filter === f ? 'active' : ''}`}
+                onClick={() => setFilter(f)}
+              >
+                {f === 'ALL' ? 'Tout voir' : f}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* GRILLE DES RECOMMANDATIONS (Affiche les 5 autres vidéos) */}
+        {recommendationVideos.length > 0 ? (
+          <div className="grid grid--3">
+            {recommendationVideos.map((video, index) => (
+              <VideoCard 
+                key={video.id} 
+                video={video} 
+                index={index} 
+                onSelect={handleSelectVideo}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="no-results">Aucune autre vidéo disponible dans cette catégorie.</p>
         )}
-
-        {/* FILTRES POUR LES 5 VIDÉOS (Inclusion du type SHORT au cas où) */}
-        <div className="diary-filters">
-          {(['ALL', 'VLOG', 'GUIDE', 'RAW', 'SHORT'] as const).map(f => (
-            <button 
-              key={f}
-              className={`diary-filter ${filter === f ? 'active' : ''}`}
-              onClick={() => setFilter(f)}
-            >
-              {f === 'ALL' ? 'Tout voir' : f}
-            </button>
-          ))}
-        </div>
-
-        {/* LA GRILLE DES 5 VIDÉOS */}
-        <div className="grid grid--3">
-          {filteredVideos.map((video, index) => (
-            <VideoCard 
-              key={video.id} 
-              video={video} 
-              index={index} 
-              onSelect={handleSelectVideo}
-            />
-          ))}
-        </div>
       </div>
 
       <style jsx>{`
@@ -265,13 +249,20 @@ export default function DiaryPage() {
           line-height: 1.6;
         }
 
+        .diary-filters-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: var(--space-md);
+          margin-bottom: var(--space-xl);
+        }
+
         .diary-filters {
           display: flex;
           gap: 0.5rem;
-          margin-top: var(--space-2xl);
-          margin-bottom: var(--space-xl);
           overflow-x: auto;
-          padding-bottom: 0.5rem;
+          padding-bottom: 0.25rem;
         }
 
         .diary-filter {
@@ -300,9 +291,21 @@ export default function DiaryPage() {
           border-color: var(--text-primary);
         }
 
+        .no-results {
+          font-family: var(--font-mono);
+          font-size: 0.85rem;
+          color: var(--text-muted);
+          text-align: center;
+          padding: var(--space-xl) 0;
+        }
+
         @media (max-width: 900px) {
           .diary-featured {
             grid-template-columns: 1fr;
+          }
+          .diary-filters-header {
+            flex-direction: column;
+            align-items: flex-start;
           }
         }
       `}</style>
