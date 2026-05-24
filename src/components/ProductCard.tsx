@@ -12,13 +12,26 @@ interface ProductCardProps {
 export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
+  // Configuration étendue pour matcher EXACTEMENT avec tes données de data.ts
   const statusConfig: Record<string, { label: string; color: string; bgColor: string }> = {
-    LIVE: { label: 'DROP LIVE', color: 'var(--accent-primary)', bgColor: 'var(--accent-primary-dim)' },
-    SOLD_OUT: { label: 'SOLD OUT', color: 'var(--accent-danger)', bgColor: 'var(--accent-danger-dim)' },
-    COMING_SOON: { label: 'BIENTÔT', color: 'var(--accent-cool)', bgColor: 'var(--accent-cool-dim)' },
+    'LIVE': { label: 'DROP LIVE', color: 'var(--accent-primary)', bgColor: 'var(--accent-primary-dim)' },
+    'Drop Live': { label: 'DROP LIVE', color: 'var(--accent-primary)', bgColor: 'var(--accent-primary-dim)' },
+    'COMING_SOON': { label: 'BIENTÔT', color: 'var(--accent-cool)', bgColor: 'var(--accent-cool-dim)' },
+    'SOLD_OUT': { label: 'SOLD OUT', color: 'var(--accent-danger)', bgColor: 'var(--accent-danger-dim)' },
+    'Sold Out': { label: 'SOLD OUT', color: 'var(--accent-danger)', bgColor: 'var(--accent-danger-dim)' },
+    'Limited': { label: 'ÉDITION LIMITÉE', color: 'var(--accent-warm, #d97706)', bgColor: 'rgba(217, 119, 6, 0.1)' },
   };
 
-  const status = statusConfig[product.status];
+  // Sécurité ultime : si le statut n'est pas trouvé, on applique une configuration par défaut
+  const status = statusConfig[product.status] || { 
+    label: product.status.toUpperCase(), 
+    color: 'var(--text-muted)', 
+    bgColor: 'var(--bg-secondary)' 
+  };
+
+  // Sécurité sur le comportement des boutons selon le statut textuel
+  const isLive = product.status === 'LIVE' || product.status === 'Drop Live';
+  const isComingSoon = product.status === 'COMING_SOON';
 
   return (
     <div
@@ -29,9 +42,20 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
     >
       {/* Image */}
       <div className="product-card__image">
+        {/* On utilise une balise standard img ou ton rendu d'image si dispo */}
         <div className="product-card__image-placeholder">
-          <span className="product-card__image-icon">◆</span>
-          <span className="product-card__image-text">{product.category}</span>
+          {product.image ? (
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          ) : (
+            <>
+              <span className="product-card__image-icon">◆</span>
+              <span className="product-card__image-text">{product.category || 'Vêtement'}</span>
+            </>
+          )}
         </div>
 
         {/* Status Badge */}
@@ -50,12 +74,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         <p className="product-card__desc">{product.description}</p>
         <div className="product-card__footer">
           <span className="product-card__price">{formatPrice(product.price)}</span>
-          {product.status === 'LIVE' && (
+          {isLive && (
             <a href="https://www.patreon.com/c/RobyDLR/home" target="_blank" rel="noopener noreferrer" className="btn btn--primary btn--sm" style={{ textDecoration: 'none' }}>
               Soutenir (Patreon)
             </a>
           )}
-          {product.status === 'COMING_SOON' && (
+          {isComingSoon && (
             <button className="btn btn--secondary btn--sm">
               Notifier
             </button>
