@@ -28,16 +28,22 @@ export interface Product {
   description: string;
   price: number;
   image: string;
-  status: 'LIVE' | 'SOLD_OUT' | 'COMING_SOON';
-  category: string;
+  status: string; // Acceptation de tous les statuts textuels (Limited, Drop Live, etc.)
+  category?: string;
   dropDate?: string;
+  subtitle?: string;
+  stockMax?: number;
+  stockLeft?: number;
+  mantra?: string;
 }
 
 export interface GuideSection {
   slug: string;
   title: string;
   subtitle: string;
-  icon: string;
+  coverImage: string;
+  pdfFilename: string;
+  pdfSize: string;
   color: string;
   description: string;
 }
@@ -157,27 +163,13 @@ export const videos: Video[] = [
 ];
 
 // --- Products ---
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  status: 'LIVE' | 'SOLD_OUT' | 'COMING_SOON';
-  category?: string;  // ← Ajoute le petit "?" ici pour la rendre optionnelle !
-  dropDate?: string;
-  subtitle?: string;  // Au cas où tu l'utilises aussi
-  stockMax?: number;
-  stockLeft?: number;
-  mantra?: string;
-}
-export const products = [
+export const products: Product[] = [
   {
     id: 'hoodie-dreamer',
     name: 'THE DREAMER Hoodie — Noir',
     subtitle: 'COTON LOURD 400G • CROP DIY',
     price: 79,
-    image: '/images/sweatshirt-gris.webp', // Chemin de ton image
+    image: '/images/sweatshirt-gris.webp',
     description: 'Coton brut, coupe oversize boxy. Broderie ocre "Allow Yourself to Dream" au dos.',
     stockMax: 100,
     stockLeft: 34,
@@ -189,7 +181,7 @@ export const products = [
     name: 'RAW DIARY Tee — Blanc cassé',
     subtitle: 'COTON BIO • PRINT MINIMALISTE',
     price: 39,
-    image: '/images/tee.webp', // Chemin de ton image
+    image: '/images/tee.webp',
     description: 'T-shirt minimaliste, print "The Raw Dreamer’s Diary" au cœur.',
     stockMax: 50,
     stockLeft: 12,
@@ -200,31 +192,20 @@ export const products = [
     name: 'CHIEFS Casquette — Olive',
     subtitle: '5 PANELS • OLIVE PATCH',
     price: 29,
-    image: '/images/hat.webp', // Chemin de ton image
+    image: '/images/hat.webp',
     description: 'Casquette technique, broderie "Chiefs Club".',
     status: 'Sold Out'
   }
 ];
-// --- Guide Sections ---
-export interface GuideSection {
-  slug: string;
-  title: string;
-  subtitle: string;
-  coverImage: string;
-  pdfFilename: string;
-  pdfSize: string;
-  color: string;
-  description: string;
-  // Supprime la ligne icon ici
-}
 
+// --- Guide Sections ---
 export const guideSections: GuideSection[] = [
   {
     slug: 'deep-work',
     title: 'Deep Work',
     subtitle: 'Cal Newport',
     coverImage: '/images/cover-deepwork.jpg',
-    pdfFilename: 'Deep_Work_Cal_Newport.pdf', // Ajuste le nom exact de ton PDF
+    pdfFilename: 'Deep_Work_Cal_Newport.pdf',
     pdfSize: '2.8 Mo',
     color: 'var(--accent-primary)',
     description: 'La méthode exacte pour éliminer totalement les distractions, basculer en Monk Mode et accomplir en 2 heures ce que les autres font en une semaine.',
@@ -260,6 +241,7 @@ export const guideSections: GuideSection[] = [
     description: 'Le protocole de la résilience pure. Comment briser la barrière psychologique des 40% et reprogrammer ton esprit pour la discipline militaire.',
   }
 ];
+
 // --- Guide Content ---
 export const guideContent: Record<string, {
   title: string;
@@ -267,148 +249,35 @@ export const guideContent: Record<string, {
   sections: { title: string; content: string; tips?: string[] }[];
   table?: { headers: string[]; rows: string[][] };
 }> = {
-  lookmaxxing: {
-    title: 'Maîtrise du Lookmaxxing',
-    intro: 'Le visage et le corps sont des actifs que l\'on optimise. L\'objectif est d\'envoyer des signaux de haute valeur biologique. Pour Roby, l\'apparence physique n\'est pas une futilité — c\'est un indicateur de santé et de discipline.',
+  'deep-work': {
+    title: 'Maîtrise du Deep Work & Focus',
+    intro: 'Le blueprint complet pour éliminer les distractions et basculer en Monk Mode.',
     sections: [
       {
-        title: 'Le Protocole Mewing',
-        content: 'La technique centrale est le Mewing, mais elle nécessite une précision chirurgicale. Il ne suffit pas de poser la langue au palais ; il faut engager la langue sur toute sa longueur pour éviter de bloquer les voies respiratoires.',
-        tips: [
-          'L\'Effet Ventouse (Vacuum Effect) : En avalant ta salive, tu crées une pression négative qui plaque la langue contre le palais de façon permanente.',
-          'La Technique du "N" : Prononce un "N" de manière désinvolte pour trouver le End Spot (juste derrière les incisives).',
-          'Cheesy Swallowing : Avale en souriant largement pour forcer la langue à faire tout le travail de déglutition, isolant ainsi les muscles buccinateurs pour creuser les joues.',
-        ],
-      },
-      {
-        title: 'Hollow Cheeks & Jawline',
-        content: 'Les joues creusées et une mâchoire définie sont les marqueurs d\'un visage sculpté. Le Mewing combiné à une faible masse graisseuse faciale et à la mastication régulière (chewing gum dur) va restructurer progressivement la zone mandibulaire.',
-        tips: [
-          'Mastique du chewing-gum dur (type Falim) 30 minutes par jour pour hypertrophier les masséters.',
-          'Réduis le sodium et bois 2-3L d\'eau par jour pour limiter la rétention d\'eau faciale.',
-          'Dors sur le dos pour éviter la compression asymétrique du visage.',
-        ],
-      },
-    ],
-    table: {
-      headers: ['Avantages Beauté', 'Avantages Santé'],
-      rows: [
-        ['Mâchoire sculptée et projetée', 'Alignement dentaire naturel'],
-        ['Pommettes rehaussées', 'Optimisation de la respiration nasale'],
-        ['Joues creusées (Hollow Cheeks)', 'Réduction de l\'apnée du sommeil'],
-        ['Regard plus "hunter"', 'Correction de la posture cervicale'],
-      ],
-    },
+        title: 'Le Protocole Monk Mode',
+        content: 'Comment s\'isoler pour charbonner à l\'abri des regards...',
+        tips: ['Mode avion radical', 'Blocs de 90 minutes']
+      }
+    ]
   },
-  yoke: {
-    title: 'Architecture du Yoke',
-    intro: 'Pour imposer une présence physique (la Frame), Roby privilégie le Yoke plutôt que la masse globale. Le but est de créer un contraste maximal entre la région claviculaire et la taille — le fameux V-Taper.',
+  'atomic-habits': {
+    title: 'La Science des Atomes d\'Habitudes',
+    intro: 'Comment 1% de changement redéfinit ta discipline au quotidien.',
     sections: [
       {
-        title: 'Anatomie Stratégique',
-        content: 'Cible les trapèzes supérieurs (en respectant leur orientation de fibres diagonale), le haut des pectoraux, les deltoïdes latéraux et le cou. Ces muscles créent l\'illusion d\'une carrure massive même sous des vêtements.',
-        tips: [
-          'Trapèzes : Shrugs avec barre, farmer\'s walks lourds (3×12-15)',
-          'Pectoraux supérieurs : Guillotine Press à la Smith Machine — barre descendant au niveau des clavicules',
-          'Deltoïdes latéraux : Élévations latérales avec buste légèrement penché en avant (4×15-20)',
-          'Cou : Neck curls et Side-to-side (50-100 reps au poids de corps, ou 10-15 reps lestées)',
-        ],
-      },
-      {
-        title: 'Le Programme Yoke Builder',
-        content: 'Un programme de 4 jours par semaine focalisé sur le haut du corps et la région claviculaire, avec des techniques d\'intensification pour maximiser l\'hypertrophie.',
-        tips: [
-          'Jour 1 : Push (Pec supérieur + Deltoïdes + Triceps)',
-          'Jour 2 : Pull (Dos largeur + Trapèzes + Biceps)',
-          'Jour 3 : Repos actif (cardio LISS 30 min)',
-          'Jour 4 : Yoke Focus (Cou + Trapèzes + Deltoïdes latéraux)',
-          'Jour 5 : Legs (Squat + Deadlift — pour la testostérone)',
-        ],
-      },
-    ],
+        title: 'L\'identité avant le résultat',
+        content: 'Deviens un bâtisseur avant de vouloir un résultat parfait.'
+      }
+    ]
   },
-  style: {
-    title: 'Style Intentionnel',
-    intro: 'S\'habiller n\'est pas une question de goût, c\'est de la communication visuelle. Roby rejette la fast-fashion de mauvaise qualité pour une stratégie d\'investissement temporel. Si tu n\'as pas de budget, investis du temps.',
-    sections: [
-      {
-        title: 'La Règle d\'Or des Proportions',
-        content: 'Respecte systématiquement le ratio 1/3 en haut, 2/3 en bas. Cela allonge les jambes et structure la silhouette. Les hauts doivent être "croppés" ou retroussés pour marquer la taille.',
-        tips: [
-          'Retrousse légèrement le bas de tes pantalons pour créer une cassure nette à la cheville.',
-          'Les t-shirts doivent s\'arrêter au niveau des hanches, jamais en dessous.',
-          'Utilise Pinterest comme moodboard avant tout achat — définis ton esthétique (Old Money, Dark Confidence, Star Boy).',
-        ],
-      },
-      {
-        title: 'Stratégie d\'Achat : Temps vs Argent',
-        content: 'Si tu n\'as pas de budget, tu dois investir du temps. Uniqlo est l\'unique exception acceptable en fast-fashion pour sa durabilité. Le reste se construit en seconde main.',
-      },
-    ],
-    table: {
-      headers: ['Pièce', 'Budget Max (Seconde Main)'],
-      rows: [
-        ['Hauts (T-shirts, Chemises)', '2€ à 15€'],
-        ['Bas (Coupes larges/baggy)', '25€ à 30€'],
-        ['Pulls / Hoodies', '20€ à 30€'],
-        ['Grosses pièces (Manteaux)', '100€ à 150€'],
-        ['Chaussures (EXCEPTION: Full Price)', 'Air Force 1, Salomon, Gazelle'],
-      ],
-    },
+  '48-laws-of-power': {
+    title: 'Décryptage des Lois du Pouvoir',
+    intro: 'L\'ingénierie sociale expliquée pour protéger ton attention.',
+    sections: []
   },
-  'bio-optimization': {
-    title: 'Optimisation Biologique',
-    intro: 'L\'adolescence est la seule fenêtre de tir pour hacker ta génétique. Roby en est la preuve vivante : il a atteint 1,81-1,82m alors que ses deux parents font moins de 1,70m.',
-    sections: [
-      {
-        title: 'Le Sommeil comme Dopage Naturel',
-        content: 'L\'hormone de croissance est sécrétée lors de la première phase du sommeil. Louper cette fenêtre à cause de la lumière bleue est du sabotage pur.',
-        tips: [
-          'Coupe les lumières zénithales 2h avant le coucher. Utilise des bougies (15-20 Lux).',
-          'Active le filtre rouge sur ton smartphone — indispensable pour neutraliser la lumière bleue.',
-          'Douche chaude avant le dodo pour forcer le corps à se refroidir par réaction.',
-          'Chambre fraîche (18-19°C) pour optimiser la thermorégulation.',
-          'Vise 8-9h de sommeil — non négociable pendant la croissance.',
-        ],
-      },
-      {
-        title: 'Nutrition de Haute Densité',
-        content: 'Ton corps est une machine de construction osseuse et musculaire. Nourris-le comme tel.',
-        tips: [
-          '8 à 10 œufs par jour — l\'aliment le plus dense nutritionnellement.',
-          'Protéines : 2g par kg de poids de corps minimum.',
-          'Calcium : produits laitiers crus, lait entier, fromage.',
-          'Collagène : bouillon d\'os ou supplémentation pour les articulations.',
-          'Sport à haute intensité : charges lourdes + sprints de 20-25 secondes pour stimuler la croissance.',
-        ],
-      },
-    ],
-  },
-  mindset: {
-    title: 'Ingénierie Sociale & Mindset',
-    intro: 'La gestion de l\'attention est la monnaie du 21ème siècle. Roby prône une déconnexion radicale pour se reconstruire. Pendant que les autres dorment ou se détruisent, toi tu construis.',
-    sections: [
-      {
-        title: 'Détox de Dopamine',
-        content: 'Supprime Instagram et TikTok pendant un mois. Le contenu rapide détruit ton système de récompense et te rend incapable de fournir un effort soutenu.',
-        tips: [
-          'Semaine 1-2 : Supprime toutes les apps de réseaux sociaux. L\'ennui est ton allié.',
-          'Semaine 3-4 : Remplace le scroll par de la lecture (30 min/jour minimum).',
-          'Après 30 jours : Réinstalle Instagram uniquement comme portfolio/carte de visite.',
-          'Règle absolue : Crée plus que tu ne consommes.',
-        ],
-      },
-      {
-        title: 'Le Cercle de Qualité',
-        content: 'Pourquoi craindre d\'être exclu par des gens dont les seuls hobbies sont de fumer, boire et traîner ? La vraie popularité se construit par l\'excellence.',
-        tips: [
-          'Privilégie les rencontres via des activités : Gym, Billard, Festivals, Sport outdoor.',
-          'Entoure-toi de gens qui partagent une vision de progrès constant.',
-          'Ton feed Instagram = ta carte de visite. Clean, stratégique, orienté statut.',
-          'La logique du rejet social : les gens qui te rejettent pour tes ambitions ne méritent pas ton énergie.',
-        ],
-      },
-    ],
-  },
+  'cant-hurt-me': {
+    title: 'Esprit Inattaquable',
+    intro: 'Reprogrammer sa tolérance à l\'effort et briser ses barrières psychologiques.',
+    sections: []
+  }
 };
-

@@ -106,7 +106,7 @@ export default function Home() {
             {guideSections.slice(0, 4).map((section, index) => (
               <SectionReveal key={section.slug} delay={index * 0.1}>
                 <Link href={`/guide/${section.slug}`} className="card card--interactive" style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
-                  <div style={{ fontSize: '2rem', marginBottom: '1rem', color: section.color }}>{section.icon}</div>
+                 <div style={{ fontSize: '1.5rem', marginBottom: '1rem', color: section.color, fontFamily: 'var(--font-mono)' }}>◆</div>
                   <h4 style={{ marginBottom: '0.5rem' }}>{section.title}</h4>
                   <p style={{ fontSize: '0.8125rem' }}>{section.subtitle}</p>
                 </Link>

@@ -34,16 +34,23 @@ export default async function GuideDetailPage({ params }: GuideDetailPageProps) 
 
         {/* Header */}
         <header className="detail-header">
-          <SectionReveal>
-            <div className="detail-header__icon" style={{ color: section.color }}>
-              {section.icon}
-            </div>
-            <span className="label" style={{ color: section.color, marginBottom: '1rem', display: 'block' }}>
-              {section.subtitle}
-            </span>
-            <h1 className="detail-title">{content.title}</h1>
-            <p className="detail-intro">{content.intro}</p>
-          </SectionReveal>
+            <SectionReveal>
+  <div className="detail-header__cover-wrapper" style={{ '--book-color': section.color } as React.CSSProperties}>
+    {/* Remplacement par une balise HTML standard pour bypass le bug de types */}
+    <img 
+      src={section.coverImage} 
+      alt={`Couverture de ${section.title}`}
+      width={120}
+      height={175}
+      className="detail-header__cover"
+    />
+  </div>
+  <span className="label" style={{ color: section.color, marginBottom: '1rem', display: 'block' }}>
+    {section.subtitle}
+  </span>
+  <h1 className="detail-title">{section.title}</h1>
+  <p className="detail-intro">{content.intro}</p>
+</SectionReveal>
         </header>
 
         {/* Content Sections */}

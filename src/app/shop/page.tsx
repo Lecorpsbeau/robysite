@@ -47,7 +47,6 @@ export default function ShopPage() {
           background: var(--bg-primary); /* Fond Deep Forest */
         }
 
-        /* Header Authentification */
         .page-header {
           text-align: center;
           margin-bottom: var(--space-3xl);
