@@ -169,7 +169,7 @@ export const products: Product[] = [
     name: 'THE DREAMER Hoodie — Noir',
     subtitle: 'COTON LOURD 400G • CROP DIY',
     price: 79,
-    image: '/images/sweatshirt-gris.webp',
+    image: '/images/hoodie.webp',
     description: 'Coton brut, coupe oversize boxy. Broderie ocre "Allow Yourself to Dream" au dos.',
     stockMax: 100,
     stockLeft: 34,
@@ -199,13 +199,24 @@ export const products: Product[] = [
 ];
 
 // --- Guide Sections ---
+export interface GuideSection {
+  slug: string;
+  title: string;
+  subtitle: string;
+  coverImage: string;
+  pdfFilename: string;
+  pdfSize: string;
+  color: string;
+  description: string;
+}
+
 export const guideSections: GuideSection[] = [
   {
     slug: 'deep-work',
     title: 'Deep Work',
     subtitle: 'Cal Newport',
-    coverImage: '/images/cover-deepwork.jpg',
-    pdfFilename: 'Deep_Work_Cal_Newport.pdf',
+    coverImage: '/images/deepwork.jpg',
+    pdfFilename: 'deepwork.pdf',
     pdfSize: '2.8 Mo',
     color: 'var(--accent-primary)',
     description: 'La méthode exacte pour éliminer totalement les distractions, basculer en Monk Mode et accomplir en 2 heures ce que les autres font en une semaine.',
@@ -214,8 +225,8 @@ export const guideSections: GuideSection[] = [
     slug: 'atomic-habits',
     title: 'Atomic Habits',
     subtitle: 'James Clear',
-    coverImage: '/images/cover-atomic.jpg',
-    pdfFilename: 'Atomic habits ( PDFDrive ).pdf',
+    coverImage: '/images/atomic-habits.jpg',
+    pdfFilename: 'atomic-habits.pdf',
     pdfSize: '5.1 Mo',
     color: 'var(--accent-warm)',
     description: 'Comment de micro-changements de 1% dans ta routine quotidienne détruisent tes mauvaises habitudes pour hacker ton physique, ton code et ton business.',
@@ -224,25 +235,185 @@ export const guideSections: GuideSection[] = [
     slug: '48-laws-of-power',
     title: 'Les 48 Lois du Pouvoir',
     subtitle: 'Robert Greene',
-    coverImage: '/images/cover-power.jpg',
-    pdfFilename: 'Power_les_48_lois_du_pouvoir_Robert_Greene_Z-Library (1).pdf',
+    coverImage: '/images/power.jpg',
+    pdfFilename: 'les-48-lois-du-pouvoir.pdf',
     pdfSize: '2.1 Mo',
     color: 'var(--accent-danger)',
     description: 'Le blueprint de l\'ingénierie sociale. Maîtrise ton image, décode les dynamiques de groupe et protège ton attention des manipulateurs.',
   },
   {
-    slug: 'cant-hurt-me',
-    title: 'Can\'t Hurt Me',
+    slug: 'cant-hurt-me-fr',
+    title: "Can't Hurt Me (FR)",
     subtitle: 'David Goggins',
-    coverImage: '/images/cover-goggins.jpg',
-    pdfFilename: 'Can_t-Hurt-Me-David-Goggins (1).pdf',
+    coverImage: '/images/goggins-fr.jpg',
+    pdfFilename: 'cant-hurt-me-fr.pdf',
     pdfSize: '4.5 Mo',
     color: 'var(--accent-purple)',
-    description: 'Le protocole de la résilience pure. Comment briser la barrière psychologique des 40% et reprogrammer ton esprit pour la discipline militaire.',
+    description: 'Le protocole de la résilience pure en version française. Comment briser la barrière psychologique des 40% et reprogrammer ton esprit.',
+  },
+  {
+    slug: 'cant-hurt-me-en',
+    title: "Can't Hurt Me (EN)",
+    subtitle: 'David Goggins',
+    coverImage: '/images/goggins-en.jpg',
+    pdfFilename: 'cant-hurt-me-en.pdf',
+    pdfSize: '4.2 Mo',
+    color: 'var(--accent-muted)',
+    description: 'The original military-grade discipline blueprint by David Goggins. Master your mind and defy the odds.',
+  },
+  {
+    slug: 'bansenshukai',
+    title: 'Bansenshukai',
+    subtitle: 'L\'Art Secret des Ninjas',
+    coverImage: '/images/bansenshukai.jpg',
+    pdfFilename: 'bansenshukai.pdf',
+    pdfSize: '6.4 Mo',
+    color: 'var(--accent-dark)',
+    description: 'L\'anthologie secrète de la stratégie shinobi. Philosophie de l\'infiltration, de l\'esprit calme et de l\'adaptation totale au terrain.',
+  },
+  {
+    slug: 'be-obsessed',
+    title: 'Be Obsessed or Be Average',
+    subtitle: 'Grant Cardone',
+    coverImage: '/images/be-obsessed.jpg',
+    pdfFilename: 'be-obsessed.pdf',
+    pdfSize: '3.1 Mo',
+    color: 'var(--accent-warning)',
+    description: 'Pourquoi l\'obsession saine est ton seul outil pour sortir de la masse. Utilise ton hyperactivité et ton ambition comme des super-pouvoirs.',
+  },
+  {
+    slug: 'comment-se-faire-des-amis',
+    title: 'Comment se faire des Amis',
+    subtitle: 'Dale Carnegie',
+    coverImage: '/images/carnegie.jpg',
+    pdfFilename: 'comment-se-faire-des-amis.pdf',
+    pdfSize: '1.9 Mo',
+    color: 'var(--accent-success)',
+    description: 'Les clés fondamentales des relations humaines et du leadership. Indispensable pour manager, réseauter et comprendre la psychologie de tes interlocuteurs.',
+  },
+  {
+    slug: 'les-quatre-accords-tolteques',
+    title: 'Les Quatre Accords Toltèques',
+    subtitle: 'Don Miguel Ruiz',
+    coverImage: '/images/tolteques.jpg',
+    pdfFilename: 'les-quatre-accords-tolteques.pdf',
+    pdfSize: '1.2 Mo',
+    color: 'var(--accent-teal)',
+    description: 'Le code de conduite ancestral pour atteindre une liberté intérieure totale, nettoyer son ego et stopper le parasitage mental.',
+  },
+  {
+    slug: 'influence-et-manipulation',
+    title: 'Influence et Manipulation',
+    subtitle: 'Robert Cialdini',
+    coverImage: '/images/cialdini.jpg',
+    pdfFilename: 'influence-et-manipulation.pdf',
+    pdfSize: '3.7 Mo',
+    color: 'var(--accent-indigo)',
+    description: 'Les 6 piliers de la persuasion. Apprends comment fonctionnent les déclencheurs psychologiques de la vente et du marketing pour mieux les maîtriser.',
+  },
+  {
+    slug: 'l-art-subtil-de-s-en-foutre',
+    title: "L'Art Subtil de s'en Foutre",
+    subtitle: 'Mark Manson',
+    coverImage: '/images/manson.jpg',
+    pdfFilename: 'l-art-subtil-de-s-en-foutre.pdf',
+    pdfSize: '2.5 Mo',
+    color: 'var(--accent-orange)',
+    description: 'Le guide anti-développement personnel. Choisis tes combats et arrête de gaspiller ton précieux capital d\'attention pour des détails futiles.',
+  },
+  {
+    slug: 'la-semaine-de-4-heures',
+    title: 'La Semaine de 4 Heures',
+    subtitle: 'Tim Ferriss',
+    coverImage: '/images/ferriss.jpg',
+    pdfFilename: 'la-semaine-de-4-heures.pdf',
+    pdfSize: '4.8 Mo',
+    color: 'var(--accent-lime)',
+    description: 'Automatisation, délégation et optimisation radicale de tes projets pour t\'émanciper du temps et bosser d\'où tu veux.',
+  },
+  {
+    slug: 'le-manuel-du-succes',
+    title: 'Le Manuel du Succès (Inédit)',
+    subtitle: 'Inconnu',
+    coverImage: '/images/manuel-succes.jpg',
+    pdfFilename: 'le-manuel-du-succes-que-l-on-ne-vous-a-jamais-dit.pdf',
+    pdfSize: '1.5 Mo',
+    color: 'var(--accent-violet)',
+    description: 'Les règles non écrites et les secrets de mindset de performance que le système éducatif traditionnel ne t\'enseignera jamais.',
+  },
+  {
+    slug: 'le-personal-mba',
+    title: 'Le Personal MBA',
+    subtitle: 'Josh Kaufman',
+    coverImage: '/images/mba.jpg',
+    pdfFilename: 'le-personal-mba.pdf',
+    pdfSize: '5.9 Mo',
+    color: 'var(--accent-blue)',
+    description: 'Tout le programme des écoles de commerce d\'élite résumé dans les concepts cruciaux de la création de valeur, du marketing et du business.',
+  },
+  {
+    slug: 'le-manuel-d-epictete',
+    title: "Le Manuel d'Épictète",
+    subtitle: 'Épictète',
+    coverImage: '/images/epictete.jpg',
+    pdfFilename: 'le-manuel-d-epictete.pdf',
+    pdfSize: '0.9 Mo',
+    color: 'var(--accent-stone)',
+    description: 'Les fondations du stoïcisme pur. Sépare instantanément ce qui dépend de toi de ce qui n\'en dépend pas pour devenir émotionnellement invulnérable.',
+  },
+  {
+    slug: 'platon-sophiste',
+    title: 'Sophiste',
+    subtitle: 'Platon',
+    coverImage: '/images/platon.jpg',
+    pdfFilename: 'platon-sophiste.pdf',
+    pdfSize: '1.4 Mo',
+    color: 'var(--accent-gray)',
+    description: 'Une étude philosophique profonde sur la vérité, l\'illusion, le discours et l\'art de l\'argumentation face aux faux semblants.',
+  },
+  {
+    slug: 'pouvoir-illimite',
+    title: 'Pouvoir Illimité',
+    subtitle: 'Tony Robbins',
+    coverImage: '/images/robbins.jpg',
+    pdfFilename: 'pouvoir-illimite-fr.pdf',
+    pdfSize: '4.1 Mo',
+    color: 'var(--accent-gold)',
+    description: 'Programmation Neuro-Linguistique (PNL) appliquée à l\'excellence. Prends le contrôle de tes réactions physiques et de ta biochimie pour performer.',
+  },
+  {
+    slug: 'l-art-de-la-guerre',
+    title: "L'Art de la Guerre",
+    subtitle: 'Sun Tzu',
+    coverImage: '/images/sun-tzu.jpg',
+    pdfFilename: 'l-art-de-la-guerre.pdf',
+    pdfSize: '1.1 Mo',
+    color: 'var(--accent-crimson)',
+    description: 'Le traité de stratégie le plus puissant de l\'histoire humaine. Remporter le combat avant même d\'avoir engagé la bataille grâce au positionnement.',
+  },
+  {
+    slug: 'the-one-thing',
+    title: 'The One Thing',
+    subtitle: 'Gary Keller',
+    coverImage: '/images/the-one-thing.jpg',
+    pdfFilename: 'the-one-thing.pdf',
+    pdfSize: '2.3 Mo',
+    color: 'var(--accent-emerald)',
+    description: 'Trouve la tâche unique qui, une fois accomplie, rendra toutes les autres plus faciles ou carrément inutiles. L\'effet domino de la productivité.',
+  },
+  {
+    slug: 'zero-to-one',
+    title: 'Zero to One',
+    subtitle: 'Peter Thiel',
+    coverImage: '/images/zero-to-one.jpg',
+    pdfFilename: 'zero-to-one.pdf',
+    pdfSize: '3.4 Mo',
+    color: 'var(--accent-cyan)',
+    description: 'Le guide des start-ups et monopoles du futur par le co-fondateur de PayPal. Comment construire des entreprises qui créent une valeur radicalement neuve.',
   }
 ];
 
-// --- Guide Content ---
+// --- Guide Content Stubs ---
 export const guideContent: Record<string, {
   title: string;
   intro: string;
@@ -252,32 +423,21 @@ export const guideContent: Record<string, {
   'deep-work': {
     title: 'Maîtrise du Deep Work & Focus',
     intro: 'Le blueprint complet pour éliminer les distractions et basculer en Monk Mode.',
-    sections: [
-      {
-        title: 'Le Protocole Monk Mode',
-        content: 'Comment s\'isoler pour charbonner à l\'abri des regards...',
-        tips: ['Mode avion radical', 'Blocs de 90 minutes']
-      }
-    ]
+    sections: [{ title: 'Le Protocole Monk Mode', content: 'S\'isoler pour charbonner à l\'abri des regards.', tips: ['Mode avion radical', 'Blocs de 90 minutes'] }]
   },
   'atomic-habits': {
     title: 'La Science des Atomes d\'Habitudes',
     intro: 'Comment 1% de changement redéfinit ta discipline au quotidien.',
-    sections: [
-      {
-        title: 'L\'identité avant le résultat',
-        content: 'Deviens un bâtisseur avant de vouloir un résultat parfait.'
-      }
-    ]
+    sections: [{ title: 'L\'identité avant le résultat', content: 'Deviens un bâtisseur avant de vouloir un résultat parfait.' }]
   },
   '48-laws-of-power': {
     title: 'Décryptage des Lois du Pouvoir',
     intro: 'L\'ingénierie sociale expliquée pour protéger ton attention.',
-    sections: []
+    sections: [{ title: 'La Maîtrise de l\'Image', content: 'Ne surpasse jamais le maître et protège ta réputation comme un trésor.' }]
   },
-  'cant-hurt-me': {
+  'cant-hurt-me-fr': {
     title: 'Esprit Inattaquable',
     intro: 'Reprogrammer sa tolérance à l\'effort et briser ses barrières psychologiques.',
-    sections: []
+    sections: [{ title: 'La règle des 40%', content: 'Quand ton esprit te dit que tu as fini, tu n\'es qu\'à 40% de tes capacités.' }]
   }
 };
