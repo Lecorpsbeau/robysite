@@ -1,259 +1,174 @@
 'use client';
 
-import Image from 'next/image';
-import { guideSections } from '@/lib/data';
-import SectionReveal from '@/components/SectionReveal';
+import { useState } from 'react';
+import { videos } from '@/lib/data';
+import type { Video } from '@/lib/data';
+import VideoCard from '@/components/VideoCard';
+import VideoPlayer from '@/components/VideoPlayer';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
-export default function GuideIndexPage() {
+export default function DiaryPage() {
+  const [activeVideo, setActiveVideo] = useState<Video | null>(videos[0]);
+  const [filter, setFilter] = useState<'ALL' | 'VLOG' | 'GUIDE' | 'RAW'>('ALL');
+
+  const filteredVideos = filter === 'ALL' 
+    ? videos 
+    : videos.filter(v => v.category === filter);
+
+  // Fonction pour changer de vidéo et remonter doucement vers le lecteur
+  const handleSelectVideo = (video: Video) => {
+    setActiveVideo(video);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="guide-page">
+    <div className="diary-page">
       <div className="container">
-        
-        {/* HEADER */}
-        <header className="page-header">
-          <SectionReveal>
-            <div className="author-avatar-wrapper">
-              <Image 
-                src="/images/profile.jpg" 
-                alt="Augustin" 
-                width={90} 
-                height={90} 
-                className="author-avatar"
-                priority
-              />
-              <div className="avatar-pulse"></div>
-            </div>
-            <span className="label label--accent">ENCYCLOPEDIA</span>
-            <h1 className="page-title">L&apos;INGÉNIERIE DU NOUVEAU LYCÉEN</h1>
-            <p className="page-subtitle">Le blueprint de la métamorphose. Les meilleures lectures de focus et discipline décryptées.</p>
-          </SectionReveal>
+        <header className="diary-header">
+          <h1 className="diary-title">THE DIARY</h1>
+          <p className="diary-subtitle">Explore l&apos;intégralité des vlogs, guides et contenus bruts.</p>
         </header>
 
-        {/* SECTION DES LIVRES & RÉSUMÉS */}
-        <SectionReveal>
-          <h2 className="section-divider-title">◆ La Bibliothèque Élite (Deep Work)</h2>
-        </SectionReveal>
-        
-        <div className="grid grid--2">
-          {guideSections.map((book, index) => (
-            <SectionReveal key={book.slug} delay={index * 0.1}>
-              <div className="book-card">
-                
-                <div className="book-card__main">
-                  {/* COUVERTURE DU LIVRE EN GUISE D'ICÔNE */}
-                  <div className="book-cover-wrapper" style={{ '--book-border': book.color } as React.CSSProperties}>
-                    <Image 
-                      src={book.coverImage} 
-                      alt={`Couverture de ${book.title}`} 
-                      fill
-                      className="book-cover"
-                    />
-                  </div>
-
-                  {/* TITRE ET RÉSUMÉ */}
-                  <div className="book-card__content">
-                    <span className="book-author" style={{ color: book.color }}>{book.subtitle}</span>
-                    <h2 className="book-title">{book.title}</h2>
-                    <p className="book-desc">{book.description}</p>
-                  </div>
+        {/* Featured Video Player Area */}
+        {activeVideo && (
+          <div className="diary-featured">
+            <div className="diary-featured__player">
+              <VideoPlayer youtubeId={activeVideo.youtubeId} title={activeVideo.title} />
+              
+              <div className="diary-featured__info">
+                <h2>{activeVideo.title}</h2>
+                <div className="diary-featured__meta">
+                  <span className="label">{activeVideo.category}</span>
+                  <span>•</span>
+                  <span>{activeVideo.views} vues</span>
+                  <span>•</span>
+                  <span>{activeVideo.date}</span>
                 </div>
-
-                {/* BOUTON DE TÉLÉCHARGEMENT DIRECT */}
-                <div className="book-card__footer">
-                  <a 
-                    href={`/pdfs/${book.pdfFilename}`} 
-                    download 
-                    className="btn-download"
-                    style={{ '--btn-hover-color': book.color } as React.CSSProperties}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="icon-dl">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4M7 10l5 5 5-5M12 15V3"/>
-                    </svg>
-                    <span>Télécharger le PDF</span>
-                    <span className="file-size">({book.pdfSize})</span>
-                  </a>
-                </div>
-
+                <p>{activeVideo.description}</p>
               </div>
-            </SectionReveal>
+            </div>
+            
+            <div className="diary-featured__sidebar">
+              <TracklistPlayer tracks={activeVideo.tracklist} videoTitle={activeVideo.title} />
+            </div>
+          </div>
+        )}
+
+        {/* Filters */}
+        <div className="diary-filters">
+          {(['ALL', 'VLOG', 'GUIDE', 'RAW'] as const).map(f => (
+            <button 
+              key={f}
+              className={`diary-filter ${filter === f ? 'active' : ''}`}
+              onClick={() => setFilter(f)}
+            >
+              {f === 'ALL' ? 'Tout voir' : f}
+            </button>
+          ))}
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid--3">
+          {filteredVideos.map((video, index) => (
+            <VideoCard 
+              key={video.id} 
+              video={video} 
+              index={index} 
+              onSelect={handleSelectVideo} // Utilise la nouvelle fonction ici
+            />
           ))}
         </div>
       </div>
 
       <style jsx>{`
-        .guide-page {
+        .diary-page {
           padding: calc(var(--space-4xl) + 60px) 0 var(--space-4xl);
-          background: var(--bg-primary);
         }
 
-        .page-header {
+        .diary-header {
+          margin-bottom: var(--space-2xl);
           text-align: center;
+        }
+
+        .diary-title {
+          margin-bottom: 0.5rem;
+        }
+
+        .diary-subtitle {
+          color: var(--text-secondary);
+        }
+
+        .diary-featured {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+          gap: var(--space-xl);
           margin-bottom: var(--space-3xl);
-          max-width: 800px;
-          margin-inline: auto;
+          padding-bottom: var(--space-2xl);
+          border-bottom: 1px solid var(--border);
         }
 
-        .author-avatar-wrapper {
-          position: relative;
-          width: 90px;
-          height: 90px;
-          margin: 0 auto 1.5rem;
+        .diary-featured__info {
+          margin-top: var(--space-lg);
         }
 
-        .author-avatar {
-          border-radius: 50%;
-          border: 2px solid var(--border-accent);
-          object-fit: cover;
-          z-index: 2;
-          position: relative;
+        .diary-featured__info h2 {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
         }
 
-        .avatar-pulse {
-          position: absolute;
-          inset: -4px;
-          border-radius: 50%;
-          background: var(--border-accent);
-          opacity: 0.15;
-          animation: pulse 3s infinite ease-in-out;
-          z-index: 1;
-        }
-
-        @keyframes pulse {
-          0% { transform: scale(1); opacity: 0.15; }
-          50% { transform: scale(1.08); opacity: 0.3; }
-          100% { transform: scale(1); opacity: 0.15; }
-        }
-
-        .page-title {
-          font-family: var(--font-titles);
-          margin-top: 0.5rem;
+        .diary-featured__meta {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-family: var(--font-mono);
+          font-size: 0.75rem;
+          color: var(--text-muted);
           margin-bottom: 1rem;
         }
 
-        .page-subtitle {
+        .diary-featured__info p {
           color: var(--text-secondary);
-          font-size: 1.125rem;
-        }
-
-        .section-divider-title {
-          font-family: var(--font-mono);
-          font-size: 0.9rem;
-          text-transform: uppercase;
-          letter-spacing: 0.15em;
-          color: var(--text-muted);
-          margin-bottom: var(--space-xl);
-        }
-
-        /* Cartes de Livres Structurées */
-        .book-card {
-          display: flex;
-          flex-direction: column;
-          padding: 2rem;
-          background: var(--bg-card);
-          border: 1px solid var(--border);
-          border-radius: var(--radius-md);
-          height: 100%;
-          transition: all var(--duration-normal) var(--ease-out);
-        }
-
-        .book-card:hover {
-          border-color: var(--border-accent);
-          background: var(--bg-secondary);
-          transform: translateY(-2px);
-        }
-
-        .book-card__main {
-          display: flex;
-          align-items: flex-start;
-          gap: 1.75rem;
-          flex-grow: 1;
-          margin-bottom: 1.75rem;
-        }
-
-        /* Couverture de livre réaliste style vertical */
-        .book-cover-wrapper {
-          position: relative;
-          width: 105px;
-          height: 155px;
-          flex-shrink: 0;
-          border-radius: 4px;
-          overflow: hidden;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-          border-left: 3px solid var(--book-border);
-        }
-
-        .book-cover {
-          object-fit: cover;
-        }
-
-        .book-card__content {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .book-author {
-          font-family: var(--font-mono);
-          font-size: 0.75rem;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          margin-bottom: 0.25rem;
-        }
-
-        .book-title {
-          font-size: 1.5rem;
-          color: var(--text-primary);
-          margin-bottom: 0.75rem;
-          font-weight: 600;
-        }
-
-        .book-desc {
-          color: var(--text-secondary);
-          font-size: 0.925rem;
           line-height: 1.6;
         }
 
-        /* Bouton Télécharger Customisé */
-        .book-card__footer {
-          margin-top: auto;
+        .diary-filters {
+          display: flex;
+          gap: 0.5rem;
+          margin-bottom: var(--space-xl);
+          overflow-x: auto;
+          padding-bottom: 0.5rem;
         }
 
-        .btn-download {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 0.75rem 1.25rem;
-          background: var(--bg-primary);
-          border: 1px solid var(--border);
-          border-radius: var(--radius-sm, 6px);
-          color: var(--text-primary);
-          text-decoration: none;
-          font-size: 0.875rem;
-          font-weight: 500;
-          transition: all 0.2s ease;
-          width: 100%;
-          justify-content: center;
-        }
-
-        .btn-download:hover {
-          border-color: var(--btn-hover-color);
-          background: var(--bg-card);
-          color: var(--text-primary);
-        }
-
-        .icon-dl {
-          color: var(--text-muted);
-          transition: transform 0.2s ease;
-        }
-
-        .btn-download:hover .icon-dl {
-          transform: translateY(1px);
-          color: var(--text-primary);
-        }
-
-        .file-size {
+        .diary-filter {
+          padding: 0.5rem 1rem;
           font-family: var(--font-mono);
           font-size: 0.75rem;
-          color: var(--text-muted);
+          font-weight: 600;
+          color: var(--text-secondary);
+          background: var(--bg-secondary);
+          border: 1px solid var(--border);
+          border-radius: var(--radius-full);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          white-space: nowrap;
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .diary-filter:hover {
+          color: var(--text-primary);
+          border-color: var(--border-accent);
+        }
+
+        .diary-filter.active {
+          color: var(--bg-primary);
+          background: var(--text-primary);
+          border-color: var(--text-primary);
+        }
+
+        @media (max-width: 900px) {
+          .diary-featured {
+            grid-template-columns: 1fr;
+          }
         }
       `}</style>
     </div>
