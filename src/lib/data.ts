@@ -157,6 +157,20 @@ export const videos: Video[] = [
 ];
 
 // --- Products ---
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  status: 'LIVE' | 'SOLD_OUT' | 'COMING_SOON';
+  category?: string;  // ← Ajoute le petit "?" ici pour la rendre optionnelle !
+  dropDate?: string;
+  subtitle?: string;  // Au cas où tu l'utilises aussi
+  stockMax?: number;
+  stockLeft?: number;
+  mantra?: string;
+}
 export const products = [
   {
     id: 'hoodie-dreamer',
