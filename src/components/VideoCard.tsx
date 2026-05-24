@@ -46,18 +46,6 @@ export default function VideoCard({ video, onSelect, index = 0 }: VideoCardProps
 
         {/* Duration */}
         <span className="video-card__duration">{video.duration}</span>
-
-        {/* Category Badge */}
-        <span
-          className="video-card__badge"
-          style={{
-            color: categoryColors[video.category],
-            borderColor: categoryColors[video.category],
-            background: `${categoryColors[video.category]}15`,
-          }}
-        >
-          {video.category}
-        </span>
       </div>
 
       {/* Info */}

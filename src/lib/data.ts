@@ -10,9 +10,9 @@ export interface Video {
   duration: string;
   views: string;
   date: string;
-  category: 'VLOG' | 'GUIDE' | 'RAW' | 'SHORT';
   youtubeId: string;
   tracklist: Track[];
+  // category: string; <- À SUPPRIMER OU METTRE EN COMMENTAIRE
 }
 
 export interface Track {
@@ -70,31 +70,29 @@ export interface RoutineConfig {
 export const videos: Video[] = [
   {
     id: 'v1',
-    title: 'PLAN COMPLET pour glow up avant l\'été',
-    description: 'Le guide ultime pour ta transformation en 90 jours. Sport, nutrition, style, mindset — tout y est.',
-    thumbnail: '/images/thumb-glowup.jpg',
+    title: "PLAN COMPLET pour glow up avant l'été",
+    description: "Le guide ultime et le plan d'action en 90 jours pour transformer physiquement et mentalement ton quotidien avant l'arrivée des beaux jours.",
+    thumbnail: '/images/glowup.jpg',
     duration: '28:40',
     views: '75K',
     date: 'Il y a 1 an',
-    category: 'GUIDE',
     youtubeId: 'RdjMT7x6nYs',
     tracklist: [
       { timestamp: '0:00', title: 'Intro Beat', artist: 'Roby Edit', spotifyUrl: '#' },
-      { timestamp: '3:24', title: 'After Dark', artist: 'Mr.Kitty', spotifyUrl: 'https://open.spotify.com/track/2LKOHdMsL2K8KaINbWnUI5' },
-      { timestamp: '8:15', title: 'Myth', artist: 'Beach House', spotifyUrl: 'https://open.spotify.com/track/1duRMU2IN2hQr8HpAYmPf7' },
+      { timestamp: '3:24', title: 'After Dark', artist: 'Mr.Kitty', spotifyUrl: '#' },
+      { timestamp: '8:15', title: 'Myth', artist: 'Beach House', spotifyUrl: '#' },
       { timestamp: '15:30', title: 'Le temps est bon', artist: 'Bon Entendeur', spotifyUrl: '#' },
-      { timestamp: '22:00', title: 'Resonance', artist: 'HOME', spotifyUrl: 'https://open.spotify.com/track/6b2RcmUt1g9N9mQ3CbjX2Y' },
+      { timestamp: '22:00', title: 'Resonance', artist: 'HOME', spotifyUrl: '#' },
     ]
   },
   {
     id: 'v2',
-    title: 'Les 3 règles pour TOUJOURS être bien habillé',
-    description: 'La règle 1/3 – 2/3, les basiques, et comment construire un style intentionnel sans budget.',
-    thumbnail: '/images/thumb-style.jpg',
+    title: 'GUIDE COMPLET pour avoir un insta CLEAN',
+    description: "Toutes les étapes indispensables pour nettoyer ton feed, optimiser ta bio, gérer ton personal branding et construire une esthétique Instagram impactante.",
+    thumbnail: '/images/insta-clean.jpg',
     duration: '19:33',
     views: '30K',
     date: 'Il y a 1 an',
-    category: 'GUIDE',
     youtubeId: 'IUU7bDvKU4U',
     tracklist: [
       { timestamp: '0:00', title: 'Glory Box', artist: 'Portishead', spotifyUrl: '#' },
@@ -104,64 +102,58 @@ export const videos: Video[] = [
   },
   {
     id: 'v3',
-    title: '6 choses À FAIRE le matin pour changer ta vie en tant que LYCÉEN',
-    description: 'La morning routine qui a tout changé. Hydratation, exercice, lecture — le protocole complet.',
-    thumbnail: '/images/thumb-morning.jpg',
-    duration: '31:31',
-    views: '24K',
-    date: 'Il y a 1 an',
-    category: 'GUIDE',
-    youtubeId: 'Bgrd6YcRcus',
-    tracklist: [
-      { timestamp: '0:00', title: 'Snowfall', artist: 'Øneheart', spotifyUrl: '#' },
-      { timestamp: '7:30', title: 'Sweater Weather', artist: 'The Neighbourhood', spotifyUrl: '#' },
-    ]
-  },
-  {
-    id: 'v4',
-    title: 'THE RAW DREAMER\'S DIARY — Ski Edit',
-    description: 'Les grands espaces, la poudreuse, et un montage brut capturant l\'essence de la montagne.',
-    thumbnail: '/images/thumb-ski.jpg',
-    duration: '12:08',
-    views: '18K',
-    date: 'Il y a 8 mois',
-    category: 'VLOG',
-    youtubeId: '3kUQDTGPAFI',
-    tracklist: [
-      { timestamp: '0:00', title: 'Skinny Love', artist: 'Bon Iver', spotifyUrl: '#' },
-      { timestamp: '4:20', title: 'Re: Stacks', artist: 'Bon Iver', spotifyUrl: '#' },
-      { timestamp: '8:45', title: 'Intro', artist: 'The xx', spotifyUrl: '#' },
-    ]
-  },
-  {
-    id: 'v5',
-    title: 'UNFILTERED — Ma vraie journée type (sans filtre)',
-    description: 'Pas de montage fancy, pas de musique. Juste ma réalité brute, du réveil au coucher.',
-    thumbnail: '/images/thumb-unfiltered.jpg',
-    duration: '45:20',
-    views: '12K',
-    date: 'Il y a 6 mois',
-    category: 'RAW',
-    youtubeId: 'or4PfnEJBMU',
-    tracklist: []
-  },
-  {
-    id: 'v6',
-    title: 'Comment avoir une MÂCHOIRE SCULPTÉE (Mewing Guide)',
-    description: 'Le protocole complet de Mewing : technique du N, cheesy swallowing, et vacuum effect expliqués.',
-    thumbnail: '/images/thumb-jawline.jpg',
+    title: 'La MEILLEURE méthode pour avoir une jawline (GUIDE COMPLET)',
+    description: 'Analyse et protocole complet autour du Mewing : posture de la langue, déglutition et exercices pour sculpter et redéfinir la structure de ta mâchoire.',
+    thumbnail: '/images/jawline.jpg',
     duration: '22:15',
     views: '42K',
     date: 'Il y a 5 mois',
-    category: 'GUIDE',
     youtubeId: 'P-ZmH0JQFgg',
     tracklist: [
       { timestamp: '0:00', title: 'SLOW DANCING IN THE DARK', artist: 'Joji', spotifyUrl: '#' },
       { timestamp: '10:30', title: 'Nights', artist: 'Frank Ocean', spotifyUrl: '#' },
     ]
   },
+  {
+    id: 'v4',
+    title: 'Comment OPTIMISER sa CROISSANCE en tant qu’ADOLESCENT',
+    description: "Sommeil, alimentation ciblée, entraînements adaptés et micro-nutriments. Tout ce que la science dit pour maximiser ton potentiel de croissance pendant l'adolescence.",
+    thumbnail: '/images/croissance.jpg',
+    duration: '15:45',
+    views: '58K',
+    date: 'Il y a 4 mois',
+    youtubeId: '3kUQDTGPAFI',
+    tracklist: [
+      { timestamp: '0:00', title: 'Skinny Love', artist: 'Bon Iver', spotifyUrl: '#' },
+      { timestamp: '4:20', title: 'Re: Stacks', artist: 'Bon Iver', spotifyUrl: '#' }
+    ]
+  },
+  {
+    id: 'v5',
+    title: 'Full routine pour avoir des DENTS BLANCHES et des lèvres pulpeuses',
+    description: "Mes secrets et ma routine d'hygiène buccale au quotidien pour un sourire éclatant et prendre soin de tes lèvres naturellement.",
+    thumbnail: '/images/hygiene-buccale.jpg',
+    duration: '18:22',
+    views: '29K',
+    date: 'Il y a 3 mois',
+    youtubeId: 'or4PfnEJBMU',
+    tracklist: []
+  },
+  {
+    id: 'v6',
+    title: '3 trucs que j’aurais aimé savoir avant le LYCÉE',
+    description: "Erreurs classiques, gestion du statut social, productivité et mindset. Ce que j'aurais aimé qu'on me dise le jour de ma rentrée en Seconde.",
+    thumbnail: '/images/lycee.jpg',
+    duration: '31:31',
+    views: '64K',
+    date: 'Il y a 2 mois',
+    youtubeId: 'Bgrd6YcRcus',
+    tracklist: [
+      { timestamp: '0:00', title: 'Snowfall', artist: 'Øneheart', spotifyUrl: '#' },
+      { timestamp: '7:30', title: 'Sweater Weather', artist: 'The Neighbourhood', spotifyUrl: '#' },
+    ]
+  },
 ];
-
 // --- Products ---
 export const products: Product[] = [
   {
@@ -441,3 +433,33 @@ export const guideContent: Record<string, {
     sections: [{ title: 'La règle des 40%', content: 'Quand ton esprit te dit que tu as fini, tu n\'es qu\'à 40% de tes capacités.' }]
   }
 };
+export interface Book {
+  id: string;
+  title: string;
+  slug: string;
+  pdfUrl: string;
+  coverUrl: string;
+}
+
+export const books: Book[] = [
+  { id: 'b1', title: 'Atomic Habits', slug: 'atomic-habits', pdfUrl: '/pdfs/atomic-habits.pdf', coverUrl: '/images/atomic-habits.jpg' },
+  { id: 'b2', title: 'Bansenshukai', slug: 'bansenshukai', pdfUrl: '/pdfs/bansenshukai.pdf', coverUrl: '/images/bansenshukai.jpg' },
+  { id: 'b3', title: 'Be Obsessed', slug: 'be-obsessed', pdfUrl: '/pdfs/be-obsessed.pdf', coverUrl: '/images/be-obsessed.jpg' },
+  { id: 'b4', title: "Can't Hurt Me (EN)", slug: 'cant-hurt-me-en', pdfUrl: '/pdfs/cant-hurt-me-en.pdf', coverUrl: '/images/cant-hurt-me-en.jpg' },
+  { id: 'b5', title: "Can't Hurt Me (FR)", slug: 'cant-hurt-me-fr', pdfUrl: '/pdfs/cant-hurt-me-fr.pdf', coverUrl: '/images/cant-hurt-me-fr.jpg' },
+  { id: 'b6', title: 'Comment Se Faire Des Amis', slug: 'comment-se-faire-des-amis', pdfUrl: '/pdfs/comment-se-faire-des-amis.pdf', coverUrl: '/images/comment-se-faire-des-amis.jpg' },
+  { id: 'b7', title: 'Deep Work', slug: 'deepwork', pdfUrl: '/pdfs/deepwork.pdf', coverUrl: '/images/deepwork.jpg' },
+  { id: 'b8', title: 'Influence Et Manipulation', slug: 'influence-et-manipulation', pdfUrl: '/pdfs/influence-et-manipulation.pdf', coverUrl: '/images/influence-et-manipulation.jpg' },
+  { id: 'b9', title: "L'Art De La Guerre", slug: 'l-art-de-la-guerre', pdfUrl: '/pdfs/l-art-de-la-guerre.pdf', coverUrl: '/images/l-art-de-la-guerre.jpg' },
+  { id: 'b10', title: "L'Art Subtil De S'en Foutre", slug: 'l-art-subtil-de-s-en-foutre', pdfUrl: '/pdfs/l-art-subtil-de-s-en-foutre.pdf', coverUrl: '/images/l-art-subtil-de-s-en-foutre.jpg' },
+  { id: 'b11', title: 'La Semaine De 4 Heures', slug: 'la-semaine-de-4-heures', pdfUrl: '/pdfs/la-semaine-de-4-heures.pdf', coverUrl: '/images/la-semaine-de-4-heures.jpg' },
+  { id: 'b12', title: "Le Manuel D'Épictète", slug: 'le-manuel-d-epictete', pdfUrl: '/pdfs/le-manuel-d-epictete.pdf', coverUrl: '/images/le-manuel-d-epictete.jpg' },
+  { id: 'b13', title: "Le Manuel Du Succès Que L'on Ne Vous A Jamais Dit", slug: 'le-manuel-du-succes-que-l-on-ne-vous-a-jamais-dit', pdfUrl: '/pdfs/le-manuel-du-succes-que-l-on-ne-vous-a-jamais-dit.pdf', coverUrl: '/images/le-manuel-du-succes-que-l-on-ne-vous-a-jamais-dit.jpg' },
+  { id: 'b14', title: 'Le Personal MBA', slug: 'le-personal-mba', pdfUrl: '/pdfs/le-personal-mba.pdf', coverUrl: '/images/le-personal-mba.jpg' },
+  { id: 'b15', title: 'Les 48 Lois Du Pouvoir', slug: 'les-48-lois-du-pouvoir', pdfUrl: '/pdfs/les-48-lois-du-pouvoir.pdf', coverUrl: '/images/les-48-lois-du-pouvoir.jpg' },
+  { id: 'b16', title: 'Les Quatre Accords Toltèques', slug: 'les-quatre-accords-tolteques', pdfUrl: '/pdfs/les-quatre-accords-tolteques.pdf', coverUrl: '/images/les-quatre-accords-tolteques.jpg' },
+  { id: 'b17', title: 'Platon - Sophiste', slug: 'platon-sophiste', pdfUrl: '/pdfs/platon-sophiste.pdf', coverUrl: '/images/platon-sophiste.jpg' },
+  { id: 'b18', title: 'Pouvoir Illimité (FR)', slug: 'pouvoir-illimite-fr', pdfUrl: '/pdfs/pouvoir-illimite-fr.pdf', coverUrl: '/images/pouvoir-illimite-fr.jpg' },
+  { id: 'b19', title: 'The One Thing', slug: 'the-one-thing', pdfUrl: '/pdfs/the-one-thing.pdf', coverUrl: '/images/the-one-thing.jpg' },
+  { id: 'b20', title: 'Zero To One', slug: 'zero-to-one', pdfUrl: '/pdfs/zero-to-one.pdf', coverUrl: '/images/zero-to-one.jpg' }
+];
