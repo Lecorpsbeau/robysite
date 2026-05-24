@@ -157,90 +157,95 @@ export const videos: Video[] = [
 ];
 
 // --- Products ---
-export const products: Product[] = [
+export const products = [
   {
-    id: 'p1',
+    id: 'hoodie-dreamer',
     name: 'THE DREAMER Hoodie — Noir',
-    description: 'Coton lourd 400g, coupe oversize, broderie "Allow Yourself to Dream" au dos. Édition limitée 100 pièces.',
+    subtitle: 'COTON LOURD 400G • CROP DIY',
     price: 79,
-    image: '/images/shop-hoodie.jpg',
-    status: 'LIVE',
-    category: 'Hoodies',
+    image: '/images/sweatshirt-gris.webp', // Chemin de ton image
+    description: 'Coton brut, coupe oversize boxy. Broderie ocre "Allow Yourself to Dream" au dos.',
+    stockMax: 100,
+    stockLeft: 34,
+    mantra: 'N’oublie pas de t’autoriser à rêver trop grand.',
+    status: 'Limited'
   },
   {
-    id: 'p2',
+    id: 'tee-diary',
     name: 'RAW DIARY Tee — Blanc cassé',
-    description: 'T-shirt en coton bio, print minimaliste "The Raw Dreamer\'s Diary" au cœur. Coupe regular.',
+    subtitle: 'COTON BIO • PRINT MINIMALISTE',
     price: 39,
-    image: '/images/shop-tee.jpg',
-    status: 'LIVE',
-    category: 'T-shirts',
+    image: '/images/tee.webp', // Chemin de ton image
+    description: 'T-shirt minimaliste, print "The Raw Dreamer’s Diary" au cœur.',
+    stockMax: 50,
+    stockLeft: 12,
+    status: 'Drop Live'
   },
   {
-    id: 'p3',
+    id: 'hat-chiefs',
     name: 'CHIEFS Casquette — Olive',
-    description: 'Casquette 5 panels, broderie "Chiefs Club" sur le front. Taille unique ajustable.',
+    subtitle: '5 PANELS • OLIVE PATCH',
     price: 29,
-    image: '/images/shop-cap.jpg',
-    status: 'SOLD_OUT',
-    category: 'Accessoires',
-  },
-  {
-    id: 'p4',
-    name: 'DISCIPLINE Crewneck — Charbon',
-    description: 'Crewneck premium 350g, design minimaliste avec "90 DAYS" imprimé en puff print.',
-    price: 69,
-    image: '/images/shop-crewneck.jpg',
-    status: 'COMING_SOON',
-    category: 'Sweats',
-    dropDate: '2026-06-15',
-  },
+    image: '/images/hat.webp', // Chemin de ton image
+    description: 'Casquette technique, broderie "Chiefs Club".',
+    status: 'Sold Out'
+  }
 ];
-
 // --- Guide Sections ---
+export interface GuideSection {
+  slug: string;
+  title: string;
+  subtitle: string;
+  coverImage: string;
+  pdfFilename: string;
+  pdfSize: string;
+  color: string;
+  description: string;
+  // Supprime la ligne icon ici
+}
+
 export const guideSections: GuideSection[] = [
   {
-    slug: 'lookmaxxing',
-    title: 'Lookmaxxing',
-    subtitle: 'Esthétique Faciale',
-    icon: '◆',
+    slug: 'deep-work',
+    title: 'Deep Work',
+    subtitle: 'Cal Newport',
+    coverImage: '/images/cover-deepwork.jpg',
+    pdfFilename: 'Deep_Work_Cal_Newport.pdf', // Ajuste le nom exact de ton PDF
+    pdfSize: '2.8 Mo',
     color: 'var(--accent-primary)',
-    description: 'Dompte ta structure osseuse. Mewing, jawline, hollow cheeks — le protocole complet pour maximiser ton visage.',
+    description: 'La méthode exacte pour éliminer totalement les distractions, basculer en Monk Mode et accomplir en 2 heures ce que les autres font en une semaine.',
   },
   {
-    slug: 'yoke',
-    title: 'Architecture du Yoke',
-    subtitle: 'Physique & Frame',
-    icon: '▲',
+    slug: 'atomic-habits',
+    title: 'Atomic Habits',
+    subtitle: 'James Clear',
+    coverImage: '/images/cover-atomic.jpg',
+    pdfFilename: 'Atomic habits ( PDFDrive ).pdf',
+    pdfSize: '5.1 Mo',
     color: 'var(--accent-warm)',
-    description: 'Construis la carrure de domination. V-Taper, trapèzes, deltoïdes — sculpte ta silhouette pour imposer ta présence.',
+    description: 'Comment de micro-changements de 1% dans ta routine quotidienne détruisent tes mauvaises habitudes pour hacker ton physique, ton code et ton business.',
   },
   {
-    slug: 'style',
-    title: 'Style Intentionnel',
-    subtitle: 'Communication Visuelle',
-    icon: '●',
-    color: 'var(--accent-cool)',
-    description: 'Projette une vibe, pas une mode. Dark Confidence, Star Boy — définis ton esthétique et achète intelligent.',
-  },
-  {
-    slug: 'bio-optimization',
-    title: 'Optimisation Biologique',
-    subtitle: 'Sommeil & Nutrition',
-    icon: '◇',
-    color: 'var(--accent-purple)',
-    description: 'Maximise ton potentiel génétique. Sommeil, nutrition de haute densité, protocole de croissance — hacke ta biologie.',
-  },
-  {
-    slug: 'mindset',
-    title: 'Ingénierie Sociale',
-    subtitle: 'Mindset & Statut',
-    icon: '■',
+    slug: '48-laws-of-power',
+    title: 'Les 48 Lois du Pouvoir',
+    subtitle: 'Robert Greene',
+    coverImage: '/images/cover-power.jpg',
+    pdfFilename: 'Power_les_48_lois_du_pouvoir_Robert_Greene_Z-Library (1).pdf',
+    pdfSize: '2.1 Mo',
     color: 'var(--accent-danger)',
-    description: 'Maîtrise ton attention et ton statut. Dopamine detox, cercle de qualité, Instagram comme portfolio stratégique.',
+    description: 'Le blueprint de l\'ingénierie sociale. Maîtrise ton image, décode les dynamiques de groupe et protège ton attention des manipulateurs.',
   },
+  {
+    slug: 'cant-hurt-me',
+    title: 'Can\'t Hurt Me',
+    subtitle: 'David Goggins',
+    coverImage: '/images/cover-goggins.jpg',
+    pdfFilename: 'Can_t-Hurt-Me-David-Goggins (1).pdf',
+    pdfSize: '4.5 Mo',
+    color: 'var(--accent-purple)',
+    description: 'Le protocole de la résilience pure. Comment briser la barrière psychologique des 40% et reprogrammer ton esprit pour la discipline militaire.',
+  }
 ];
-
 // --- Guide Content ---
 export const guideContent: Record<string, {
   title: string;
@@ -393,66 +398,3 @@ export const guideContent: Record<string, {
   },
 };
 
-// --- Routine Templates ---
-export const routineTemplates = {
-  physique: {
-    beginner: {
-      sport: ['20 min de marche rapide', '3×10 pompes', '3×15 squats poids de corps', '2×10 tractions assistées'],
-      nutrition: ['8 œufs/jour', '2L d\'eau minimum', 'Protéines à chaque repas', 'Éviter les sucres raffinés'],
-      sleep: ['8h30 de sommeil', 'Écrans coupés 1h avant', 'Chambre à 19°C'],
-      mindset: ['10 min de lecture', 'Pas de réseaux avant 12h', 'Journaling 5 min'],
-    },
-    intermediate: {
-      sport: ['Musculation 4×/semaine (Push/Pull/Legs/Yoke)', '15 min cardio HIIT', 'Neck curls 3×20', 'Étirements 10 min'],
-      nutrition: ['10 œufs/jour', '2.5L d\'eau', '2g protéines/kg', 'Collagène matin', 'Lait entier 500mL'],
-      sleep: ['9h de sommeil', 'Bougies 2h avant le coucher', 'Douche chaude + chambre froide', 'Filtre rouge smartphone'],
-      mindset: ['30 min de lecture', 'Dopamine detox le dimanche', 'Objectifs hebdo écrits', 'Pas d\'alcool'],
-    },
-    advanced: {
-      sport: ['Musculation 5×/semaine + Yoke Focus', 'Sprints 20-25s × 8', 'Neck training 5×/semaine', 'Mobilité quotidienne', 'Mewing conscient 24/7'],
-      nutrition: ['Meal prep dominical', 'Tracking macros (MyFitnessPal)', 'Bouillon d\'os quotidien', 'Créatine 5g/jour', 'Omega 3 haute dose'],
-      sleep: ['Rythme circadien strict', 'Lever à 6h même le weekend', 'Zero écran 2h avant', 'Sieste stratégique 20 min si dette'],
-      mindset: ['Méditation 15 min', 'Cold exposure quotidien', 'Lecture 1h/jour', 'Business/Side project 2h/jour'],
-    },
-  },
-  productivity: {
-    beginner: {
-      sport: ['15 min de marche', 'Étirements au réveil'],
-      nutrition: ['Petit-déj protéiné', '2L d\'eau', 'Pas de sucre avant 12h'],
-      sleep: ['8h de sommeil fixes', 'Réveil sans snooze', 'Routine du soir constante'],
-      mindset: ['Pomodoro 25/5 × 4', 'Une tâche difficile le matin', 'Journaling 5 min soir', 'Pas de scroll au réveil'],
-    },
-    intermediate: {
-      sport: ['30 min exercice le matin', 'Marche de réflexion 20 min'],
-      nutrition: ['Jeûne intermittent 16/8', 'Café noir uniquement (pas de sucre)', 'Repas planifiés la veille'],
-      sleep: ['Rythme circadien régulé', 'Lumière naturelle 15 min au réveil', 'Zero caféine après 14h'],
-      mindset: ['Deep work 3h/matin', 'Time blocking agenda', 'Revue hebdomadaire', 'Réseaux sociaux 30 min max/jour'],
-    },
-    advanced: {
-      sport: ['Musculation ou HIIT quotidien', 'Cold shower matinale', 'Marche nature 1h/semaine'],
-      nutrition: ['Nootropiques naturels (L-Théanine, Magnésium)', 'Alimentation anti-inflammatoire', 'Zero alcool'],
-      sleep: ['Oura Ring ou sleep tracking', 'Optimisation HRV', 'Chambre = sanctuaire (zero tech)'],
-      mindset: ['Second brain (Notion/Obsidian)', 'Side project 3h/jour', 'Mentorat ou masterclass hebdo', 'Lecture 1 livre/semaine'],
-    },
-  },
-  balanced: {
-    beginner: {
-      sport: ['20 min d\'exercice 3×/semaine', '10 min stretching quotidien'],
-      nutrition: ['3 repas équilibrés', '2L d\'eau', '6 œufs/jour'],
-      sleep: ['8h de sommeil', 'Horaires réguliers', 'Routine du soir calme'],
-      mindset: ['15 min de lecture', '1 objectif du jour', 'Pas de téléphone 1h après le réveil'],
-    },
-    intermediate: {
-      sport: ['Musculation 3×/semaine + 1 sport outdoor', 'Mobilité 15 min/jour'],
-      nutrition: ['Meal prep 2 jours', '8 œufs/jour', '2g protéines/kg', 'Supplémentation basique (Vit D, Omega 3)'],
-      sleep: ['8h30 régulier', 'Bougies le soir', 'Filtre bleu activé'],
-      mindset: ['Deep work 2h/jour', 'Journaling matin + soir', 'Digital detox 1 jour/semaine'],
-    },
-    advanced: {
-      sport: ['Musculation 4-5×/semaine + Yoke', 'Sport outdoor hebdo (ski, rando)', 'Cold exposure 3×/semaine'],
-      nutrition: ['Nutrition optimisée et trackée', 'Bouillon d\'os', 'Collagène + Créatine', 'Zero processed food'],
-      sleep: ['Chronotype respecté', 'Sleep tracking', 'Environnement optimisé'],
-      mindset: ['Deep work 4h/jour', 'Side project actif', 'Réseau de qualité', 'Création de contenu régulière'],
-    },
-  },
-};
