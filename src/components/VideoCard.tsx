@@ -12,13 +12,6 @@ interface VideoCardProps {
 export default function VideoCard({ video, onSelect, index = 0 }: VideoCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const categoryColors: Record<string, string> = {
-    VLOG: 'var(--accent-cool)',
-    GUIDE: 'var(--accent-primary)',
-    RAW: 'var(--accent-warm)',
-    SHORT: 'var(--accent-purple)',
-  };
-
   return (
     <div
       className={`video-card ${isHovered ? 'video-card--hovered' : ''}`}
@@ -29,13 +22,23 @@ export default function VideoCard({ video, onSelect, index = 0 }: VideoCardProps
       tabIndex={0}
       style={{ animationDelay: `${index * 0.1}s` }}
     >
-      {/* Thumbnail */}
+      {/* Thumbnail Container */}
       <div className="video-card__thumb">
-        <div className="video-card__thumb-placeholder">
-          <span className="video-card__thumb-icon">▶</span>
-        </div>
+        {/* LA VRAIE IMAGE S'AFFICHE ICI ICI MAINTENANT */}
+        {video.thumbnail ? (
+          <img 
+            src={video.thumbnail} 
+            alt={video.title} 
+            className="video-card__image"
+            loading="lazy"
+          />
+        ) : (
+          <div className="video-card__thumb-placeholder">
+            <span className="video-card__thumb-icon">▶</span>
+          </div>
+        )}
 
-        {/* Overlay */}
+        {/* Overlay au survol */}
         <div className="video-card__thumb-overlay">
           <div className="video-card__play-btn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -56,7 +59,7 @@ export default function VideoCard({ video, onSelect, index = 0 }: VideoCardProps
           <span className="video-card__meta-dot">·</span>
           <span>{video.date}</span>
         </div>
-        {video.tracklist.length > 0 && (
+        {video.tracklist && video.tracklist.length > 0 && (
           <div className="video-card__tracks">
             <span className="video-card__tracks-icon">♫</span>
             <span>{video.tracklist.length} morceaux</span>
@@ -85,6 +88,18 @@ export default function VideoCard({ video, onSelect, index = 0 }: VideoCardProps
           background: var(--bg-card);
         }
 
+        /* Style pour forcer l'image à bien remplir le cadre sans se déformer */
+        .video-card__image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform var(--duration-normal) var(--ease-out);
+        }
+
+        .video-card--hovered .video-card__image {
+          transform: scale(1.03);
+        }
+
         .video-card__thumb-placeholder {
           width: 100%;
           height: 100%;
@@ -103,7 +118,7 @@ export default function VideoCard({ video, onSelect, index = 0 }: VideoCardProps
         .video-card__thumb-overlay {
           position: absolute;
           inset: 0;
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(0, 0, 0, 0.4);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -143,21 +158,7 @@ export default function VideoCard({ video, onSelect, index = 0 }: VideoCardProps
           color: var(--text-primary);
           padding: 2px 6px;
           border-radius: var(--radius-sm);
-        }
-
-        .video-card__badge {
-          position: absolute;
-          top: 8px;
-          left: 8px;
-          font-family: var(--font-mono);
-          font-size: 0.625rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          padding: 3px 8px;
-          border-radius: var(--radius-sm);
-          border: 1px solid;
-          backdrop-filter: blur(8px);
+          z-index: 2;
         }
 
         .video-card__info {

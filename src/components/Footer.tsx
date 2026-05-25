@@ -72,12 +72,6 @@ export default function Footer() {
     { label: 'Guide', href: '/guide' },
   ];
 
-  const legalLinks = [
-    { label: 'Mentions Légales', href: '/mentions-legales' },
-    { label: 'Conditions d\'Utilisation (CGU)', href: '/cgu' },
-    { label: 'Politique de Cookies', href: '/cookies' },
-  ];
-
   return (
     <footer className="footer">
       <div className="footer__inner">
@@ -87,9 +81,16 @@ export default function Footer() {
             <Link href="/" className="footer__logo">
               ROBY<span className="footer__logo-dot">.</span>
             </Link>
-            <p className="footer__tagline">
-              Allow yourself to dream (too) big.
-            </p>
+            
+            {/* Conteneur avec la citation et la mention légale juste en dessous */}
+            <div className="footer__dream-container">
+              <p className="footer__tagline">
+                Allow yourself to dream (too) big.
+              </p>
+              <Link href="/mentions-legales" className="footer__legal-sublink">
+                Mentions Légales
+              </Link>
+            </div>
           </div>
 
           <div className="footer__nav">
@@ -118,17 +119,6 @@ export default function Footer() {
                   <span className="footer__social-icon">{link.svg}</span>
                   <span>{link.label}</span>
                 </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="footer__legal-nav">
-            <span className="footer__nav-title">Légal</span>
-            <div className="footer__nav-links">
-              {legalLinks.map((link) => (
-                <Link key={link.href} href={link.href} className="footer__nav-link legal-link">
-                  {link.label}
-                </Link>
               ))}
             </div>
           </div>
@@ -163,9 +153,15 @@ export default function Footer() {
 
         .footer__top {
           display: grid;
-          grid-template-columns: 1.5fr 1fr 1.3fr 1fr;
+          grid-template-columns: 2fr 1fr 1fr;
           gap: var(--space-2xl);
           margin-bottom: var(--space-3xl);
+        }
+
+        .footer__brand {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
         }
 
         .footer__logo {
@@ -182,11 +178,33 @@ export default function Footer() {
           color: var(--accent-primary);
         }
 
+        .footer__dream-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+        }
+
         .footer__tagline {
           font-family: var(--font-mono);
           font-size: 0.875rem;
           color: var(--text-muted);
           font-style: italic;
+          margin: 0;
+        }
+
+        .footer__legal-sublink {
+          font-family: var(--font-mono);
+          font-size: 0.6875rem;
+          color: var(--text-muted);
+          text-decoration: none;
+          opacity: 0.4;
+          letter-spacing: 0.05em;
+          transition: opacity var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+        }
+
+        .footer__legal-sublink:hover {
+          opacity: 1;
+          color: var(--accent-primary);
         }
 
         .footer__nav-title {
@@ -215,11 +233,6 @@ export default function Footer() {
 
         .footer__nav-link:hover {
           color: var(--text-primary);
-        }
-
-        .legal-link {
-          font-size: 0.85rem;
-          color: var(--text-muted);
         }
 
         .footer__social-links {

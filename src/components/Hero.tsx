@@ -13,7 +13,6 @@ export default function Hero() {
   const stats = [
     { value: '29.5K', label: 'Abonnés' },
     { value: '30', label: 'Vidéos' },
-    { value: '90', label: 'Jours' },
   ];
 
   return (
@@ -58,9 +57,6 @@ export default function Hero() {
           <a href="/diary" className="btn btn--primary btn--lg">
             Explorer le Diary
           </a>
-          <a href="/glow-up" className="btn btn--secondary btn--lg">
-            Commencer le Glow Up
-          </a>
         </div>
 
         {/* Stats */}
@@ -88,7 +84,8 @@ export default function Hero() {
           align-items: center;
           justify-content: center;
           overflow: hidden;
-          padding: 6rem var(--container-padding) 4rem;
+          /* Augmentation du padding bottom pour laisser de la place au scroll descendu */
+          padding: 6rem var(--container-padding) 6rem;
         }
 
         .hero__bg {
@@ -265,7 +262,8 @@ export default function Hero() {
 
         .hero__scroll {
           position: absolute;
-          bottom: 2rem;
+          /* Passé de 2rem à 0.75rem pour le descendre tout en bas de la page */
+          bottom: 0.75rem;
           left: 50%;
           transform: translateX(-50%);
           display: flex;
@@ -335,7 +333,8 @@ export default function Hero() {
 
         @media (max-width: 768px) {
           .hero {
-            padding: 5rem var(--container-padding) 3rem;
+            /* Augmentation du padding bottom sur mobile également */
+            padding: 5rem var(--container-padding) 4.5rem;
           }
 
           .hero__title {
@@ -352,6 +351,11 @@ export default function Hero() {
 
           .hero__stat-value {
             font-size: 1.5rem;
+          }
+          
+          .hero__scroll {
+            /* Garde une marge propre sur les petits écrans */
+            bottom: 0.5rem;
           }
         }
       `}</style>

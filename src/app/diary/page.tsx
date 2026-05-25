@@ -6,6 +6,7 @@ import VideoCard from '@/components/VideoCard';
 import VideoPlayer from '@/components/VideoPlayer';
 import TracklistPlayer from '@/components/TracklistPlayer';
 
+
 // Utilisation des vraies vidéos synchronisées avec ton fichier data
 const allVideos: Video[] = [
   {

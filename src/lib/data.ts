@@ -2,6 +2,13 @@
 // ROBY DALIER — Data Layer (Mock Data)
 // ============================================
 
+export interface Track {
+  timestamp: string;
+  title: string;
+  artist: string;
+  spotifyUrl: string;
+}
+
 export interface Video {
   id: string;
   title: string;
@@ -12,14 +19,6 @@ export interface Video {
   date: string;
   youtubeId: string;
   tracklist: Track[];
-  // category: string; <- À SUPPRIMER OU METTRE EN COMMENTAIRE
-}
-
-export interface Track {
-  timestamp: string;
-  title: string;
-  artist: string;
-  spotifyUrl?: string;
 }
 
 export interface Product {
@@ -447,17 +446,24 @@ export const books: Book[] = [
   { id: 'b3', title: 'Be Obsessed', slug: 'be-obsessed', pdfUrl: '/pdfs/be-obsessed.pdf', coverUrl: '/images/be-obsessed.jpg' },
   { id: 'b4', title: "Can't Hurt Me (EN)", slug: 'cant-hurt-me-en', pdfUrl: '/pdfs/cant-hurt-me-en.pdf', coverUrl: '/images/cant-hurt-me-en.jpg' },
   { id: 'b5', title: "Can't Hurt Me (FR)", slug: 'cant-hurt-me-fr', pdfUrl: '/pdfs/cant-hurt-me-fr.pdf', coverUrl: '/images/cant-hurt-me-fr.jpg' },
-  { id: 'b6', title: 'Comment Se Faire Des Amis', slug: 'comment-se-faire-des-amis', pdfUrl: '/pdfs/comment-se-faire-des-amis.pdf', coverUrl: '/images/comment-se-faire-des-amis.jpg' },
+  // Correction ici : comment-se-...-des-amis
+  { id: 'b6', title: 'Comment Se Faire Des Amis', slug: 'comment-se-faire-des-amis', pdfUrl: '/pdfs/comment-se-...-des-amis.pdf', coverUrl: '/images/comment-s...des-amis.jpg' },
   { id: 'b7', title: 'Deep Work', slug: 'deepwork', pdfUrl: '/pdfs/deepwork.pdf', coverUrl: '/images/deepwork.jpg' },
-  { id: 'b8', title: 'Influence Et Manipulation', slug: 'influence-et-manipulation', pdfUrl: '/pdfs/influence-et-manipulation.pdf', coverUrl: '/images/influence-et-manipulation.jpg' },
+  // Correction ici : influence-et-...
+  { id: 'b8', title: 'Influence Et Manipulation', slug: 'influence-et-manipulation', pdfUrl: '/pdfs/influence-et-manipulation.pdf', coverUrl: '/images/influence-et...iculation.jpg' },
   { id: 'b9', title: "L'Art De La Guerre", slug: 'l-art-de-la-guerre', pdfUrl: '/pdfs/l-art-de-la-guerre.pdf', coverUrl: '/images/l-art-de-la-guerre.jpg' },
-  { id: 'b10', title: "L'Art Subtil De S'en Foutre", slug: 'l-art-subtil-de-s-en-foutre', pdfUrl: '/pdfs/l-art-subtil-de-s-en-foutre.pdf', coverUrl: '/images/l-art-subtil-de-s-en-foutre.jpg' },
-  { id: 'b11', title: 'La Semaine De 4 Heures', slug: 'la-semaine-de-4-heures', pdfUrl: '/pdfs/la-semaine-de-4-heures.pdf', coverUrl: '/images/la-semaine-de-4-heures.jpg' },
+  // Correction ici : l-art-subtil-d...-en-foutre
+  { id: 'b10', title: "L'Art Subtil De S'en Foutre", slug: 'l-art-subtil-de-s-en-foutre', pdfUrl: '/pdfs/l-art-subtil-d...-en-foutre.pdf', coverUrl: '/images/l-art-subtil-...n-foutre.jpg' },
+  // Correction ici : la-semaine-...-heures
+  { id: 'b11', title: 'La Semaine De 4 Heures', slug: 'la-semaine-de-4-heures', pdfUrl: '/pdfs/la-semaine-de-4-heures.pdf', coverUrl: '/images/la-semaine-...-heures.jpg' },
   { id: 'b12', title: "Le Manuel D'Épictète", slug: 'le-manuel-d-epictete', pdfUrl: '/pdfs/le-manuel-d-epictete.pdf', coverUrl: '/images/le-manuel-d-epictete.jpg' },
-  { id: 'b13', title: "Le Manuel Du Succès Que L'on Ne Vous A Jamais Dit", slug: 'le-manuel-du-succes-que-l-on-ne-vous-a-jamais-dit', pdfUrl: '/pdfs/le-manuel-du-succes-que-l-on-ne-vous-a-jamais-dit.pdf', coverUrl: '/images/le-manuel-du-succes-que-l-on-ne-vous-a-jamais-dit.jpg' },
+  // Correction ici : le-manuel-du...jamais-dit
+  { id: 'b13', title: "Le Manuel Du Succès Que L'on Ne Vous A Jamais Dit", slug: 'le-manuel-du-succes-que-l-on-ne-vous-a-jamais-dit', pdfUrl: '/pdfs/le-manuel-du...jamais-dit.pdf', coverUrl: '/images/le-manuel-d...mais-dit.jpg' },
   { id: 'b14', title: 'Le Personal MBA', slug: 'le-personal-mba', pdfUrl: '/pdfs/le-personal-mba.pdf', coverUrl: '/images/le-personal-mba.jpg' },
-  { id: 'b15', title: 'Les 48 Lois Du Pouvoir', slug: 'les-48-lois-du-pouvoir', pdfUrl: '/pdfs/les-48-lois-du-pouvoir.pdf', coverUrl: '/images/les-48-lois-du-pouvoir.jpg' },
-  { id: 'b16', title: 'Les Quatre Accords Toltèques', slug: 'les-quatre-accords-tolteques', pdfUrl: '/pdfs/les-quatre-accords-tolteques.pdf', coverUrl: '/images/les-quatre-accords-tolteques.jpg' },
+  // Correction ici : les-48-lois-...-pouvoir
+  { id: 'b15', title: 'Les 48 Lois Du Pouvoir', slug: 'les-48-lois-du-pouvoir', pdfUrl: '/pdfs/les-48-lois-du-pouvoir.pdf', coverUrl: '/images/les-48-lois-...-pouvoir.jpg' },
+  // Correction ici : les-quatre-ac...-tolteques
+  { id: 'b16', title: 'Les Quatre Accords Toltèques', slug: 'les-quatre-accords-tolteques', pdfUrl: '/pdfs/les-quatre-ac...-tolteques.pdf', coverUrl: '/images/les-quatre-...tolteques.jpg' },
   { id: 'b17', title: 'Platon - Sophiste', slug: 'platon-sophiste', pdfUrl: '/pdfs/platon-sophiste.pdf', coverUrl: '/images/platon-sophiste.jpg' },
   { id: 'b18', title: 'Pouvoir Illimité (FR)', slug: 'pouvoir-illimite-fr', pdfUrl: '/pdfs/pouvoir-illimite-fr.pdf', coverUrl: '/images/pouvoir-illimite-fr.jpg' },
   { id: 'b19', title: 'The One Thing', slug: 'the-one-thing', pdfUrl: '/pdfs/the-one-thing.pdf', coverUrl: '/images/the-one-thing.jpg' },
